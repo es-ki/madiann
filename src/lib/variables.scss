@@ -1,0 +1,32 @@
+$xs: 0.75rem;
+$sm: 0.875rem;
+$md: 1.125rem;
+$lg: 1.25rem;
+$xl: 1.5rem;
+
+$white: #fcf3fb;
+$white-600: #e7dee6;
+$black: #192124;
+
+$breakpoints: (
+	'md': 'screen and (min-width: 768px)',
+	'lg': 'screen and (min-width: 1024px)',
+	'xl': 'screen and (min-width: 1280px)'
+) !default;
+
+@mixin mq($breakpoint) {
+	@media #{map-get($breakpoints, $breakpoint)} {
+		@content;
+	}
+}
+
+@mixin link {
+	display: inline-block;
+	padding: 0.125rem 0.75rem;
+	margin-right: 0.25rem;
+	line-height: 1;
+	border: 1px solid $black;
+	border-radius: 50vh;
+
+	@content;
+}

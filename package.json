@@ -1,0 +1,53 @@
+{
+	"name": "madiann",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"d1": "wrangler pages dev .svelte-kit/cloudflare",
+		"preview": "vite preview",
+		"test": "npm run test:integration && npm run test:unit",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write .",
+		"test:integration": "playwright test",
+		"test:unit": "vitest"
+	},
+	"devDependencies": {
+		"@neoconfetti/svelte": "^1.0.0",
+		"@playwright/test": "^1.37.1",
+		"@sveltejs/adapter-cloudflare": "^2.3.3",
+		"@sveltejs/kit": "^1.24.1",
+		"@types/cookie": "^0.5.2",
+		"@types/eslint": "^8.44.2",
+		"@types/eslint-config-prettier": "^6.11.0",
+		"@types/prettier": "^3.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.6.0",
+		"@typescript-eslint/parser": "^6.6.0",
+		"eslint": "^8.49.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-svelte": "^2.33.1",
+		"prettier": "^3.0.3",
+		"prettier-plugin-svelte": "^3.0.3",
+		"sass": "^1.66.1",
+		"svelte": "^4.2.0",
+		"svelte-check": "^3.5.1",
+		"sveltekit-superforms": "^1.6.1",
+		"tslib": "^2.6.2",
+		"typescript": "^5.2.2",
+		"vite": "^4.4.9",
+		"vitest": "^0.34.4",
+		"zod": "^3.22.2"
+	},
+	"dependencies": {
+		"cheerio": "^1.0.0-rc.12",
+		"highlight.js": "^11.8.0",
+		"microcms-js-sdk": "^2.5.0",
+		"the-new-css-reset": "^1.9.0"
+	},
+	"type": "module",
+	"engines": {
+		"node": ">=18.x"
+	}
+}

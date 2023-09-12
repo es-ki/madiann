@@ -1,0 +1,23 @@
+# ローカル環境を示すフラグ
+# APIのAccess-Control-Allow-Originの設定で使用しています。
+IS_LOCAL="true"
+
+# サイトの名前
+PUBLIC_SITE_NAME="SvelteKit blog"
+
+# サイトのURL
+# ローカルサーバーのURLを設定してください。ただしローカルの環境では動作に影響はありません。
+# Cloudflare Pagesにデプロイする際に、任意のURLを設定してください。
+PUBLIC_SITE_URL="http://localhost:5173"
+
+# microCMSのサービスドメイン
+MICROCMS_SERVICE_DOMAIN=""
+
+# microCMSのAPIキー
+MICROCMS_API_KEY=""
+
+# 記事の一覧（/、/articles/ページ番号）で1ページあたりに表示する記事数
+PUBLIC_PER_PAGE=2
+
+# 記事ページでコメント機能を使用するフラグ
+PUBLIC_IS_USE_COMMENT="false"

@@ -1,0 +1,4 @@
+name = "example" # 任意の名前を設定してください。
+main = ".svelte-kit/cloudflare"
+
+# データベース作成後に表示されるテキストを以下にペーストしてください。

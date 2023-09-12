@@ -1,0 +1,68 @@
+html {
+	background: $white;
+	color: $black;
+	font-family: 'Roboto', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Arial, 'nc3Jp',
+		sans-serif;
+}
+
+h1,
+h2,
+h3,
+p,
+span,
+a,
+button,
+strong,
+li,
+dt,
+dd,
+figcaption {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: bold;
+	scroll-margin-block: 1rem;
+}
+
+h1 {
+	display: table;
+	font-size: $xl;
+	margin: 0 auto 1rem;
+}
+
+h2 {
+	font-size: $xl;
+}
+
+h3 {
+	font-size: $lg;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+:where(button, input[type='text'], textarea):focus {
+	outline: 1px solid orange;
+}
+
+button {
+	cursor: pointer;
+	transition: opacity 0.2s ease-out;
+
+	&:disabled {
+		cursor: default;
+		opacity: 0.4;
+	}
+}
+
+input[type='text'],
+textarea {
+	width: 100%;
+}

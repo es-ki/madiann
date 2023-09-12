@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS comments;
+CREATE TABLE IF NOT EXISTS comments (id INTEGER PRIMARY KEY, articleId TEXT, date DATE, name TEXT, body TEXT);
