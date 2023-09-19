@@ -56,3 +56,17 @@ export const fetchCategories = async (queries?: MicroCMSQueries) =>
 	await fetchList('category', queries);
 export const fetchCategory = async (contentId: string, queries?: MicroCMSQueries) =>
 	await fetchDetail('category', contentId, queries);
+
+export const fetchAllContentIds = async (
+	endpoint: MicroCmsContentType | undefined,
+	filters = ''
+) => {
+	try {
+		if (!endpoint) throw new Error('endpointがありません。');
+		const res = await client.getAllContentIds({ endpoint, filters });
+		return res;
+	} catch (err) {
+		console.log(err);
+		return [];
+	}
+};

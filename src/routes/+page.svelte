@@ -15,8 +15,8 @@
 <article>
 	<h1>記事一覧</h1>
 
-	{#if data.articles.contents.length > 0}
-		<Articles articles={data.articles.contents} totalCount={data.articles.totalCount} current={1} />
+	{#if data.articles.length > 0}
+		<Articles articles={data.articles} totalCount={data.totalCount} current={1} />
 	{/if}
 </article>
 

@@ -24,7 +24,7 @@
 	<h1>{PUBLIC_SITE_NAME}について</h1>
 
 	<p>このページはmicroCMSで管理していません。</p>
-	<p>変更の際は`src/route/about`を編集してください。</p>
+	<p>変更の際は`src/routes/about/+page.svelte`を編集してください。</p>
 </article>
 
 <style lang="scss">

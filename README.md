@@ -44,7 +44,9 @@ npm i -g wrangler
 wrangler d1 create <DATABASE_NAME>
 ```
 
-上記を実行すると、ターミナルに以下のようなテキストが表示されるので、コピーしてください。
+上記のコマンドを実行すると、ローカルと本番環境でデータベースが作成されます。
+
+また、ターミナルに以下のようなテキストが表示されるので、コピーしてください。
 
 ```
 [[d1_databases]]
@@ -53,7 +55,7 @@ database_name = "<DATABASE_NAME>"
 database_id = "ランダムな文字列"
 ```
 
-### 手順4. wrangler.tomlにコピペ
+### 手順4. wrangler.tomlにペースト
 
 `_wrangler.toml`のファイル名を`wrangler.toml`に変更して、手順3.でコピーしたテキストをペーストしてください。
 
@@ -71,7 +73,7 @@ wrangler d1 execute <DATABASE_NAME> --local --file=./schema.sql
 npm run build
 ```
 
-### 手順7. d1に読み書き可能なアプリケーションをローカルにデプロイ
+### 手順7. データベースに読み書き可能なアプリケーションをローカルにデプロイ
 
 ```
 npm run d1
@@ -98,11 +100,21 @@ npx vite build -w
 
 ファイルの変更を監視した状態でファイルを変更して保存をすると、自動でビルドが実行されます。
 
+## 本番環境（Cloudflare Pages）にデプロイする手順
+
+下記のドキュメントを参照してください。  
+[Cloudflare Pages • Docs • SvelteKit](https://kit.svelte.dev/docs/adapter-cloudflare#deployment)  
+[Deploy a Svelte site · Cloudflare Pages docs](https://developers.cloudflare.com/pages/framework-guides/deploy-a-svelte-site/#deploy-via-the-cloudflare-dashboard)
+
+![build](https://github.com/fent/node-ytdl-core/assets/48976713/9144ef12-5339-4ed5-a524-185e9fddd354)  
+上の画像にある`ビルドコマンド`と`ビルド出力ディレクトリ`は、`フレームワーク プリセット`で`SvelteKit`を選択すると自動で設定される値で問題ありません。  
+併せてローカルの`.env`ファイルで設定した各種の変数名と値を、`環境変数（アドバンスド）`にひとつずつ設定してください。
+
 ## 本番環境（Cloudflare Pages）でコメント機能を有効にする手順
 
-Cloudflare Pagesでアプリケーションの作成を行なってから、下記の手順を実行してください。
+### 手順1. 本番環境のデータベースにテーブルを作成
 
-### 手順1. 本番環境にデータベースとテーブルを作成
+前述の`記事に対するコメントの読み書き機能をローカルで有効にする手順`の`手順3. データベースを作成`でデータベースを作成していない場合は、以下のコマンドを実行する前にデータベースを作成してください。
 
 ```
 wrangler d1 execute <DATABASE_NAME> --file=./schema.sql
@@ -112,7 +124,7 @@ wrangler d1 execute <DATABASE_NAME> --file=./schema.sql
 
 Cloudflare Pagesのアプリケーションごとの`設定`→`Functions`のページに、`D1 データベース バインディング`という項目があります。
 ![binding](https://github.com/ciscoheat/sveltekit-superforms/assets/48976713/d0f982f5-f7b5-4910-85bc-4c227671931c)
-この部分で、`プロダクション`タブで変数名を`DB`、D1データベースの項を手順1.で作成したデータベースに選択してください。
+`プロダクション`タブに切り替えた状態で`変数名`を`DB`、`D1 データベース`は作成したデータベースを選択してください。
 
 ### 手順3. 再デプロイ
 

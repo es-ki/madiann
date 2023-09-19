@@ -14,7 +14,7 @@
 	<section>
 		<h2>見出し</h2>
 		<p>このページはmicroCMSで管理していません。</p>
-		<p>変更の際は`src/route/privacy-policy`を編集してください。</p>
+		<p>変更の際は`src/routes/privacy-policy/+page.svelte`を編集してください。</p>
 	</section>
 </article>
 

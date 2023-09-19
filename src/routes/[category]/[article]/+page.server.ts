@@ -1,5 +1,5 @@
-import { fail } from '@sveltejs/kit';
-import { fetchArticle, fetchArticles } from '$lib/functions/microcms';
+import { error, fail } from '@sveltejs/kit';
+import { fetchAllContentIds, fetchArticle, fetchArticles } from '$lib/functions/microcms';
 import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 import { getParseHtml } from '$lib/functions/utils';
@@ -10,20 +10,26 @@ const schema = z.object({
 });
 
 export async function entries() {
-	const { contents } = await fetchArticles({ limit: 999 });
-	return contents.map(({ id, category }) => ({ category: category.id, article: id }));
+	const articleIds = await fetchAllContentIds('article');
+	const paths = (await Promise.all(
+		articleIds.flatMap(async (id) => {
+			const article = await fetchArticle(id);
+			return article ? { category: article.category.id, article: id } : [];
+		})
+	)) as { category: string; article: string }[];
+	return paths;
 }
 
 export async function load({ params }) {
 	const articleId = params.article;
 	const article = await fetchArticle(articleId);
-	if (!article) return { article: null, relatedArticles: [] };
+	if (!article) throw error(404, { message: 'Not found' });
 
 	const [{ contents }, form] = await Promise.all([
 		fetchArticles({
 			filters: `category[equals]${article.category.id}[and]id[not_equals]${articleId}`,
 			limit: 10,
-			orders: 'publishedAt'
+			orders: '-publishedAt'
 		}),
 		superValidate(schema)
 	]);

@@ -2,7 +2,6 @@ import { error } from '@sveltejs/kit';
 import { IS_LOCAL } from '$env/static/private';
 import { PUBLIC_SITE_URL } from '$env/static/public';
 
-/** @type {import('@sveltejs/kit').RequestHandler} */
 export async function GET({ url, platform }) {
 	try {
 		const articleId = url.searchParams.get('id');

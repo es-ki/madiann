@@ -4,6 +4,7 @@
 	import { formatDate, getPageNationArray } from '$lib/functions/utils';
 
 	export let articles: Article[],
+		categoryId = '',
 		totalCount: null | number = null,
 		current: null | number = null;
 
@@ -43,7 +44,13 @@
 					{#if current === i}
 						{i}
 					{:else}
-						<a href={i === 1 ? '/' : `/articles/${i}`}>
+						<a
+							href={i === 1
+								? categoryId
+									? `/${categoryId}`
+									: '/'
+								: `${categoryId ? `/${categoryId}` : ''}/articles/${i}`}
+						>
 							{i}
 						</a>
 					{/if}
