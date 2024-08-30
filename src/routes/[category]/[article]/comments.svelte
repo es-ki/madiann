@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { afterNavigate, goto } from '$app/navigation';
-	import { superForm } from 'sveltekit-superforms/client';
+	import { afterNavigate } from '$app/navigation';
 	import type { Comment } from '$lib/types';
+	import { superForm } from 'sveltekit-superforms/client';
 	export let dataForm, articleId: string;
 
 	let comments: Comment[] = [];
-	$: comments = [];
-	$: submitErr = '';
+	let submitErr = '';
+	let isSubmitting = false;
 	const fetchComments = async () => {
 		const res = await fetch(`/api/comment?id=${articleId}`);
 		const json = await res.json();
@@ -14,14 +14,24 @@
 	};
 	const { form, errors, constraints, enhance } = superForm(dataForm, {
 		resetForm: true,
-		onResult: async ({ result, cancel }) => {
-			if (result.type === 'failure') {
-				submitErr = result.data?.message || '予期せぬエラーが発生しました。';
-				return cancel();
-			}
-			if (result.type === 'success') {
+		SPA: true,
+		validators: false,
+		onUpdate: async ({ form }) => {
+			if (!form.valid) return;
+			isSubmitting = true;
+			try {
+				await fetch('/api/comment', {
+					method: 'POST',
+					headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify({ ...form.data, articleId })
+				});
 				await fetchComments();
 				window.scrollTo(0, document.body.scrollHeight);
+			} catch (err) {
+				console.log(err);
+				submitErr = 'コメントの投稿に失敗しました。';
+			} finally {
+				isSubmitting = false;
 			}
 		}
 	});
@@ -32,7 +42,7 @@
 
 <section>
 	<h2>コメント</h2>
-	<form method="POST" id="form" use:enhance>
+	<form id="form" method="POST" use:enhance>
 		<label for="name">お名前<span>{$form.name.length} / {$constraints.name?.maxlength}</span></label
 		>
 		<input type="text" id="name" name="name" bind:value={$form.name} {...$constraints.name} />
@@ -42,7 +52,7 @@
 		<textarea id="body" name="body" bind:value={$form.body} {...$constraints.body} />
 		{#if $errors.body}<p>{$errors.body}</p>{/if}
 
-		<button disabled={!$form.name || !$form.body}>送信</button>
+		<button disabled={!$form.name || !$form.body || isSubmitting}>送信</button>
 		{#if submitErr}<p>{submitErr}</p>{/if}
 	</form>
 

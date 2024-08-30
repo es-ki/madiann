@@ -9,3 +9,5 @@ export async function load() {
 	]);
 	return { articles: contents, totalCount: articleIds.length || 0 };
 }
+
+export const prerender = true;

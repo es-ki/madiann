@@ -1,7 +1,6 @@
 <script>
-	import { PUBLIC_SITE_NAME } from '$env/static/public';
+	import { PUBLIC_SITE_NAME, PUBLIC_SITE_URL } from '$env/static/public';
 	import Articles from '$lib/components/articles.svelte';
-	import { PUBLIC_SITE_URL } from '$env/static/public';
 
 	export let data;
 </script>
@@ -19,8 +18,3 @@
 		<Articles articles={data.articles} totalCount={data.totalCount} current={1} />
 	{/if}
 </article>
-
-<style lang="scss">
-	article {
-	}
-</style>
